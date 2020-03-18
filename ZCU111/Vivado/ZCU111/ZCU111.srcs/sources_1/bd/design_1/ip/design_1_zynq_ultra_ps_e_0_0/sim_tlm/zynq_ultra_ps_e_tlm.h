@@ -105,7 +105,11 @@ class zynq_ultra_ps_e_tlm : public sc_core::sc_module   {
     
     public:
     // Non-AXI ports are declared here
-    sc_core::sc_in<bool> maxihpm0_lpd_aclk;
+    sc_core::sc_in<bool> maxihpm0_fpd_aclk;
+    sc_core::sc_in<bool> maxihpm1_fpd_aclk;
+    sc_core::sc_out<bool> emio_uart1_txd;
+    sc_core::sc_in<bool> emio_uart1_rxd;
+    sc_core::sc_in<sc_dt::sc_bv<1> >  pl_ps_irq0;
     sc_core::sc_out<bool> pl_resetn0;
     sc_core::sc_out<bool> pl_clk0;
      
@@ -114,8 +118,10 @@ class zynq_ultra_ps_e_tlm : public sc_core::sc_module   {
 
     // Xtlm aximm master socket/s is/are delcared here. these XTLM sockets will hierachically bound with 
     // master sockets defined in vivado generated wrapper.
-    xtlm::xtlm_aximm_initiator_socket*      M_AXI_HPM0_LPD_wr_socket;
-    xtlm::xtlm_aximm_initiator_socket*      M_AXI_HPM0_LPD_rd_socket;
+    xtlm::xtlm_aximm_initiator_socket*      M_AXI_HPM0_FPD_wr_socket;
+    xtlm::xtlm_aximm_initiator_socket*      M_AXI_HPM0_FPD_rd_socket;
+    xtlm::xtlm_aximm_initiator_socket*      M_AXI_HPM1_FPD_wr_socket;
+    xtlm::xtlm_aximm_initiator_socket*      M_AXI_HPM1_FPD_rd_socket;
 
     //constructor having three paramters
     // 1. module name in sc_module_name objec, 
@@ -161,6 +167,7 @@ class zynq_ultra_ps_e_tlm : public sc_core::sc_module   {
     //pl_clk0 pin written based on pl_clk0_clk clock value 
     void trigger_pl_clk0_pin();
 
+    void pl_ps_irq0_method();
     //pl_resetn0 output reset pin get toggle when emio bank 2's 31th signal gets toggled
     //EMIO[2] bank 31th(GPIO[95] signal)acts as reset signal to the PL(refer Zynq UltraScale+ TRM, page no:761)
     void pl_resetn0_trigger();

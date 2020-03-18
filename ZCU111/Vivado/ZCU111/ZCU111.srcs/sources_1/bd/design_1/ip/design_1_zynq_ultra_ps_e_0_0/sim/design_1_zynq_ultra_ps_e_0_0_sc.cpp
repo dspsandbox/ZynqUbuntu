@@ -98,10 +98,6 @@ design_1_zynq_ultra_ps_e_0_0_sc::design_1_zynq_ultra_ps_e_0_0_sc(const sc_core::
   model_param_props.addString("C_PL_CLK2_BUF", "FALSE");
   model_param_props.addString("C_PL_CLK3_BUF", "FALSE");
   mp_impl = new zynq_ultra_ps_e_tlm("inst", model_param_props);
-
-  // initialize sockets
-  M_AXI_HPM0_LPD_wr_socket = mp_impl->M_AXI_HPM0_LPD_wr_socket;
-  M_AXI_HPM0_LPD_rd_socket = mp_impl->M_AXI_HPM0_LPD_rd_socket;
 }
 
 design_1_zynq_ultra_ps_e_0_0_sc::~design_1_zynq_ultra_ps_e_0_0_sc()
